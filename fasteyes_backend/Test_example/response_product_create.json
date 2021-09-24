@@ -1,0 +1,9 @@
+{
+  "borrow_count": 0,
+  "category": "string",
+  "user_id": 1,
+  "id": 1,
+  "is_rented": false,
+  "borrow_time_limit": 0,
+  "name": "string"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "name",
+  "serial_number": "postalcode",
+  "card_number": "credit_card_number",
+  "email": "company_email",
+  "gender": "postalcode",
+  "national_id_number": "credit_card_number",
+  "birthday": "iso8601",
+  "department_id": "postalcode",
+  "telephone_number": "phone_number",
+  "start_date": "iso8601",
+  "end_date": "iso8601",
+  "status": "postalcode"
+}

@@ -1,0 +1,13 @@
+LICENSE
+MANIFEST.in
+README.rst
+setup.cfg
+setup.py
+faker_schema/__init__.py
+faker_schema/faker_schema.py
+faker_schema/schema_loader.py
+faker_schema.egg-info/PKG-INFO
+faker_schema.egg-info/SOURCES.txt
+faker_schema.egg-info/dependency_links.txt
+faker_schema.egg-info/requires.txt
+faker_schema.egg-info/top_level.txt

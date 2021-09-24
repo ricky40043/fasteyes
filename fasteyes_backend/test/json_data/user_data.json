@@ -1,0 +1,11 @@
+{
+        "name": "dave",
+        "password": "dave1234",
+        "telephone_number": "0987654321",
+        "email": "dave@fastwise.net",
+        "address": "台北市中山區民權東路一段",
+        "usage": "自用",
+        "country": "Taiwan",
+        "company_scale": "1~5",
+        "industry": "軟體業"
+}
