@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlalchemy.orm import Session
 
-from app.core.config import default_staff
+from app.core.config import DEFAULT_USER
 from app.models.domain.Device import device
 from app.models.domain.Error_handler import UnicornException
 from app.models.domain.Observation import observation
@@ -11,7 +11,7 @@ from app.models.schemas.Observation import ObservationPostViewModel, Observation
 
 
 def get_default_staff_id(db: Session):
-    return db.query(staff).filter(staff.serial_number == default_staff).first()
+    return db.query(staff).filter(staff.serial_number == DEFAULT_USER).first()
 
 
 def create_observation(db: Session, observation_in: ObservationPostViewModel, device_id: int):

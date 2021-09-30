@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request, WebSocket
 
 from app.Server.socket import sio
 from app.api.routes.api import router as api_router
+from app.core.config import HOST_NAME, HOST_IP, PORT
 from app.db.database import engine, Base
 from starlette.middleware.cors import CORSMiddleware
 
@@ -19,8 +20,8 @@ origins = [
 
 def create_app():
     app = FastAPI()
-    # app.host = "localhost/127.0.0.1"
-    # app.port = "8080"
+    # app.host = HOST_IP
+    # app.PORT = PORT
     # app.servers ={"url": "https://localhost/127.0.0.1", "description": "Staging environment"}
 
     app.add_middleware(

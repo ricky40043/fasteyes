@@ -16,7 +16,7 @@ import cv2
 import shutil
 import uuid
 
-from app.core.config import file_path
+from app.core.config import FILE_PATH
 
 
 def get_staff_by_current_user(db: Session, current_user: user):
@@ -78,7 +78,7 @@ def get_staff_face_image_file(db: Session, staff_id: int, image_name: str):
         raise UnicornException(name=get_staff_face_image_file.__name__, description="face image not exist",
                                status_code=400)
 
-    file_name = file_path + "face/company" + str(staff_db.company_id) + "/staff" + str(
+    file_name = FILE_PATH + "face/company" + str(staff_db.company_id) + "/staff" + str(
         staff_db.id) + "/" + image_name + ".jpg"
     cv2img = cv2.imread(file_name)
     if cv2img is None:
@@ -199,8 +199,8 @@ def delete_feature(db: Session, staff_id: int):
         face_db = db.query(face).filter(face.staff_id == staff_id).first()
         face_db.updated_at = datetime.now()
 
-        if os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-            os.remove(file_path + "face/company" + str(Company_id) + "/staff" + str(
+        if os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+            os.remove(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(
                 staff_id) + "/" + "face_feature" + ".txt")
 
         db.commit()
@@ -241,16 +241,16 @@ def upload_raw_face_feature(db: Session, staff_id, raw_face_feature: str):
         face_db = db.query(face).filter(face.staff_id == staff_id).first()
         face_db.updated_at = datetime.now()
         # 寫檔案
-        if not os.path.exists(file_path + "face/"):
-            os.mkdir(file_path + "face/")
-        if not os.path.exists(file_path + "face/company" + str(Company_id)):
-            os.mkdir(file_path + "face/company" + str(Company_id))
-        if not os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-            os.mkdir(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id))
-        if not os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-            os.mkdir(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id))
+        if not os.path.exists(FILE_PATH + "face/"):
+            os.mkdir(FILE_PATH + "face/")
+        if not os.path.exists(FILE_PATH + "face/company" + str(Company_id)):
+            os.mkdir(FILE_PATH + "face/company" + str(Company_id))
+        if not os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+            os.mkdir(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id))
+        if not os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+            os.mkdir(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id))
 
-        path = file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id) + "/" + "face_feature" + ".txt"
+        path = FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id) + "/" + "face_feature" + ".txt"
 
         f = open(path, 'wb')
 
@@ -271,18 +271,18 @@ def download_raw_face_feature(db: Session, staff_id):
         staff_db = db.query(staff).filter(staff.id == staff_id).first()
         Company_id = db.query(company).filter(company.id == staff_db.company_id).first().id
         # 寫檔案
-        if not os.path.exists(file_path):
-            os.mkdir(file_path)
-        if not os.path.exists(file_path + "face/"):
-            os.mkdir(file_path + "face/")
-        if not os.path.exists(file_path + "face/company" + str(Company_id)):
-            os.mkdir(file_path + "face/company" + str(Company_id))
-        if not os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-            os.mkdir(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id))
-        if not os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-            os.mkdir(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id))
+        if not os.path.exists(FILE_PATH):
+            os.mkdir(FILE_PATH)
+        if not os.path.exists(FILE_PATH + "face/"):
+            os.mkdir(FILE_PATH + "face/")
+        if not os.path.exists(FILE_PATH + "face/company" + str(Company_id)):
+            os.mkdir(FILE_PATH + "face/company" + str(Company_id))
+        if not os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+            os.mkdir(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id))
+        if not os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+            os.mkdir(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id))
 
-        path = file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id) + "/" + "face_feature" + ".jpg"
+        path = FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id) + "/" + "face_feature" + ".jpg"
         f = open(path, 'wb')
         raw_face_feature = f.read()
         f.close()
@@ -307,28 +307,28 @@ def download_raw_face_feature(db: Session, staff_id):
 
 def upload_image(Company_id: int, staff_id: int, image_name: str, image: UploadFile = File(...)):
     # 資料夾創建
-    if not os.path.exists(file_path):
-        os.mkdir(file_path)
-    if not os.path.exists(file_path + "face/"):
-        os.mkdir(file_path + "face/")
-    if not os.path.exists(file_path + "face/company" + str(Company_id)):
-        os.mkdir(file_path + "face/company" + str(Company_id))
-    if not os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-        os.mkdir(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id))
-    if not os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-        os.mkdir(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id))
+    if not os.path.exists(FILE_PATH):
+        os.mkdir(FILE_PATH)
+    if not os.path.exists(FILE_PATH + "face/"):
+        os.mkdir(FILE_PATH + "face/")
+    if not os.path.exists(FILE_PATH + "face/company" + str(Company_id)):
+        os.mkdir(FILE_PATH + "face/company" + str(Company_id))
+    if not os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+        os.mkdir(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id))
+    if not os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+        os.mkdir(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id))
 
-    with open(file_path + "face/company" + str(Company_id) + "/staff" + str(
+    with open(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(
             staff_id) + "/" + image_name + ".jpg", "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
 
 
 def delete_image(Company_id: int, staff_id: int, image_name: str):
-    if os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-        os.remove(file_path + "face/company" + str(Company_id) + "/staff" + str(
+    if os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+        os.remove(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(
             staff_id) + "/" + image_name + ".jpg")
 
 
 def delete_all_image(Company_id: int, staff_id: int):
-    if os.path.exists(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
-        shutil.rmtree(file_path + "face/company" + str(Company_id) + "/staff" + str(staff_id))
+    if os.path.exists(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id)):
+        shutil.rmtree(FILE_PATH + "face/company" + str(Company_id) + "/staff" + str(staff_id))

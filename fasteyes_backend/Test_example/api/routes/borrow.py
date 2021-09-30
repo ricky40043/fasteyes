@@ -17,11 +17,11 @@ from faker_schema.faker_schema import FakerSchema
 from faker_schema.schema_loader import load_json_from_file, load_json_from_string
 from Test.crud import clientFunc
 
-tags_Create_schema = load_json_from_file(os.getcwd() + '\\Test\\tags_create.json')
+tags_Create_schema = load_json_from_file(os.getcwd() + '/Test/tags_create.json')
 faker = FakerSchema()
 tags_Create_data_List = faker.generate_fake(tags_Create_schema, 10)
 
-f = open(os.getcwd() + '\\Test\\Login.json', )
+f = open(os.getcwd() + '/Test\\Login.json', )
 Login_data = json.load(f)
 
 f = open(os.getcwd() + '\\Test\\Login2.json', )

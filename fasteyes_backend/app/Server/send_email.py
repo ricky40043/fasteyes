@@ -4,14 +4,15 @@ from typing import List
 import jwt
 from fastapi import BackgroundTasks
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
-from dotenv import load_dotenv
+
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 
 from app.Server.authentication import SECRET_KEY, create_access_token
 from app.Server.observation_file.crud import download_observation_image_base64
 from app.Server.staff.crud import get_staff_by_id
-
+from app.core.config import HOST_NAME
+from dotenv import load_dotenv
 load_dotenv('.env')
 
 
@@ -56,7 +57,6 @@ async def send_email_async(subject: str, email_to: str, body: dict):
 
 
 def send_email_background(background_tasks: BackgroundTasks, subject: str, email_to: str, body: dict):
-
     template = f"""
            <html>
                <body">
@@ -72,7 +72,7 @@ def send_email_background(background_tasks: BackgroundTasks, subject: str, email
                      <h2>
                         員工觀測結果:{body["observation"]["id"]}        
                      </h2>
-                    <a href="http://localhost:8000/Files/download/image/device/2/file_name/{body["observation"]["image_name"]}" />
+                    <a href="{HOST_NAME}/Files/download/image/device/{body["observation"]["device_id"]}/file_name/{body["observation"]["image_name"]}" />
             </body>
            </html>        
        """
@@ -121,7 +121,7 @@ async def SendEmailVerficationEmail(email: str):
     template = f"""
         <html>
             <body">
-                  <a href="http://localhost:8000/auth/verify_email?token={token}">
+                  <a href="{HOST_NAME}/auth/verify_email?token={token}">
                   </a>
             </body>
         </html>        

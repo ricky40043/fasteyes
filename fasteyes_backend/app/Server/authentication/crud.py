@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 
 from app.Server.authentication import create_random_password
 from app.Server.user.crud import get_password_hash
-from app.core.config import file_path
+from app.core.config import FILE_PATH
 from app.models.domain.Company import company
 from app.models.domain.Department import department
 from app.models.domain.Device import device
@@ -91,12 +91,12 @@ def clear_all_data(db: Session):
         db.query(company).delete()
         db.query(user).delete()
 
-        if os.path.exists(file_path):
-            if os.path.exists(file_path + "observation"):
-                shutil.rmtree(file_path + "observation")
+        if os.path.exists(FILE_PATH):
+            if os.path.exists(FILE_PATH + "observation"):
+                shutil.rmtree(FILE_PATH + "observation")
 
-            if os.path.exists(file_path + "face"):
-                shutil.rmtree(file_path + "face")
+            if os.path.exists(FILE_PATH + "face"):
+                shutil.rmtree(FILE_PATH + "face")
 
         db.commit()
     except Exception as e:
