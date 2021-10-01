@@ -11,4 +11,7 @@ def Authorize_user(Authorize: AuthJWT, db: Session):
     current_user = get_user_by_email(current_user_email, db)
     if not current_user and current_user_email:
         raise HTTPException(status_code=404, detail="Email Change please Login again")
+    if not current_user.is_enable:
+        raise HTTPException(status_code=401, detail="user not enable")
+
     return current_user

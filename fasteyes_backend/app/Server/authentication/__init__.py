@@ -65,6 +65,8 @@ def authenticate_user(email: str, password: str, db: Session = Depends(get_db)):
         return False
     if not verify_password(password, user.password):
         return False
+    if not user.is_enable:
+        return False
     return user
 
 
